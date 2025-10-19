@@ -1,0 +1,29 @@
+services:
+  database:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRESQL_DATABASE: devops
+      POSTGRESQL_USERNAME: admin
+      POSTGRESQL_PASSWORD: admin
+    volumes:
+      - db_data:/bitnami/postgresql
+    networks:
+      - devops-network
+  
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3333:3333
+    networks:
+      - devops-network
+
+volumes:
+  db_data:
+
+networks:
+  devops-network:
+    driver: bridge
