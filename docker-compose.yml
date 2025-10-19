@@ -2,11 +2,11 @@ services:
   database:
     image: bitnami/postgresql
     ports:
-      - 5432:5432
+      - ${DATABASE_PORT:-5432}:5432
     environment:
-      POSTGRESQL_DATABASE: devops
-      POSTGRESQL_USERNAME: admin
-      POSTGRESQL_PASSWORD: admin
+      POSTGRESQL_DATABASE: ${DATABASE_NAME:-devops}
+      POSTGRESQL_USERNAME: ${DATABASE_USER:-admin}
+      POSTGRESQL_PASSWORD: ${DATABASE_PASSWORD:-admin}
     volumes:
       - db_data:/bitnami/postgresql
     networks:
@@ -17,7 +17,18 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3333:3333
+      - ${PORT:-3000}:${PORT:-3000}
+    environment:
+      PORT: ${PORT:-3000}
+      HOST: 0.0.0.0
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_HOST: ${DATABASE_HOST:-database}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_NAME: ${DATABASE_NAME:-devops}
+      DATABASE_USER: ${DATABASE_USER:-admin}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-admin}
+    depends_on:
+      - database
     networks:
       - devops-network
 
