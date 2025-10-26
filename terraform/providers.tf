@@ -8,6 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  # Configuration options
+  profile = "thales"
+  region = "us-east-2"
 }
 
