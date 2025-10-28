@@ -1,0 +1,1 @@
+bucket_state = "rocketseat-bucket-state-thales0591"
