@@ -5,6 +5,13 @@ terraform {
       version = "6.17.0"
     }
   }
+
+  backend "s3" {
+    bucket  = "rocketseat-bucket-state-thales0591"
+    region  = "us-east-2"
+    key     = "terraform.tfstate"
+    encrypt = true
+  }
 }
 
 provider "aws" {
@@ -12,3 +19,10 @@ provider "aws" {
   region  = "us-east-2"
 }
 
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = var.bucket_state
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
