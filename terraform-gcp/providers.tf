@@ -9,5 +9,6 @@ terraform {
 
 provider "google" {
   project = "rokcetseat-devops-course"
+  credentials = file("rokcetseat-devops-course-d1325955b63b.json")
   region  = "us-central1"
 }
